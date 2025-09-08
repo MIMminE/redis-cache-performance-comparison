@@ -19,7 +19,7 @@ import java.time.Duration;
 import java.util.Arrays;
 
 @Configuration
-public class RedisConfig implements WebMvcConfigurer {
+public class RedisConfig {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
@@ -35,16 +35,29 @@ public class RedisConfig implements WebMvcConfigurer {
                 .build();
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:3000", "http://127.0.0.1:3000")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
+    /**
+     * 최신 Spring 방식: 람다식 기반 CORS 설정
+     * WebMvcConfigurer 인터페이스 구현 대신 함수형 프로그래밍 모델 사용
+     */
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                        .allowedOrigins("http://localhost:3000", "http://127.0.0.1:3000")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true)
+                        .maxAge(3600);
+            }
+        };
     }
 
+    /**
+     * 대안: CorsConfigurationSource 빈을 통한 CORS 설정
+     * 더 세밀한 제어가 필요한 경우 사용
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
