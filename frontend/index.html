@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redis 캐시 성능 비교</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Redis 캐시 성능 비교</h1>
+        
+        <!-- 테스트 버튼들 -->
+        <div class="buttons">
+            <button id="testWithoutCache">캐시 없이 테스트</button>
+            <button id="testWithCache">캐시 사용 테스트</button>
+            <button id="clearCache">캐시 클리어</button>
+        </div>
+        
+        <!-- 결과 표시 -->
+        <div id="results">
+            <h2>테스트 결과</h2>
+            <div id="resultList"></div>
+        </div>
+        
+        <!-- 통계 -->
+        <div id="statistics">
+            <h2>통계</h2>
+            <div id="statsContent">통계를 불러오는 중...</div>
+        </div>
+        
+        <!-- 로딩 표시 -->
+        <div id="loading" style="display: none;">
+            <p>⏳ 테스트 실행 중...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
