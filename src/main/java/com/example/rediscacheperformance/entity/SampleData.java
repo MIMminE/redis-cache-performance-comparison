@@ -26,8 +26,8 @@ public class SampleData {
     @Column(name = "description")
     private String description;
     
-    @Column(name = "value")
-    private Integer value;
+    @Column(name = "price")
+    private Integer price;
     
     @Column(name = "category")
     private String category;

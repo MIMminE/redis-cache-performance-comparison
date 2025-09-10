@@ -74,6 +74,12 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
+        <!-- Jackson JSR310 (Java 8 날짜/시간 지원) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
         <!-- Lombok (코드 간소화) -->
         <dependency>
             <groupId>org.projectlombok</groupId>

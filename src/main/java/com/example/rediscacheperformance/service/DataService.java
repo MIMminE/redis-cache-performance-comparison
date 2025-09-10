@@ -14,68 +14,62 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class DataService {
-    
+
     private final SampleDataRepository sampleDataRepository;
-    
+
     /**
      * 캐시를 사용하지 않는 데이터 조회
      */
     public List<SampleData> getAllDataWithoutCache() {
-        log.info("Fetching all data without cache");
         // 실제 DB 조회 시뮬레이션을 위한 지연
         simulateDatabaseDelay();
         return sampleDataRepository.findAll();
     }
-    
+
     /**
      * 캐시를 사용하는 데이터 조회
      */
     @Cacheable(value = "sampleData", key = "'all'")
     public List<SampleData> getAllDataWithCache() {
-        log.info("Fetching all data with cache (cache miss)");
         // 실제 DB 조회 시뮬레이션을 위한 지연
         simulateDatabaseDelay();
         return sampleDataRepository.findAll();
     }
-    
+
     /**
      * 카테고리별 데이터 조회 (캐시 미사용)
      */
     public List<SampleData> getDataByCategoryWithoutCache(String category) {
-        log.info("Fetching data by category '{}' without cache", category);
         simulateDatabaseDelay();
         return sampleDataRepository.findByCategory(category);
     }
-    
+
     /**
      * 카테고리별 데이터 조회 (캐시 사용)
      */
     @Cacheable(value = "sampleData", key = "#category")
     public List<SampleData> getDataByCategoryWithCache(String category) {
-        log.info("Fetching data by category '{}' with cache (cache miss)", category);
         simulateDatabaseDelay();
         return sampleDataRepository.findByCategory(category);
     }
-    
+
     /**
      * ID로 데이터 조회 (캐시 미사용)
      */
     public Optional<SampleData> getDataByIdWithoutCache(Long id) {
-        log.info("Fetching data by ID '{}' without cache", id);
         simulateDatabaseDelay();
         return sampleDataRepository.findById(id);
     }
-    
+
     /**
      * ID로 데이터 조회 (캐시 사용)
      */
     @Cacheable(value = "sampleData", key = "#id")
     public Optional<SampleData> getDataByIdWithCache(Long id) {
-        log.info("Fetching data by ID '{}' with cache (cache miss)", id);
         simulateDatabaseDelay();
         return sampleDataRepository.findById(id);
     }
-    
+
     /**
      * 데이터베이스 조회 지연 시뮬레이션
      */
